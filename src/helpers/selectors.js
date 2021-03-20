@@ -20,3 +20,30 @@ export function getAppointmentsForDay(state, day) {
 
   return result;
 }
+
+export function getInterviewersForDay(state, day) {
+  let result = [];
+
+  //IF THERE IS NO DAYS DATA FOUND
+  if (state.days.length === 0) {
+    return [];
+  }
+
+  const daysArray = state.days.filter((stateDay) => stateDay.name === day);
+
+  //IF THE DAY DOESN"T EXIST
+  if (daysArray.length === 0) {
+    return [];
+  }
+
+  //CHECK FOR EVERY INTERVIEWER WITH AN ID THAT MATCHES THE SELECTED DAYS ID
+  //CREATE AN ARRAY WITH THE RESULT
+
+  for (let id of daysArray[0].interviewers) {
+    if (state.interviewers.hasOwnProperty(id)) {
+      result.push(state.interviewers[id.toString()]);
+    }
+  }
+
+  return result;
+}

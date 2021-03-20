@@ -3,39 +3,60 @@ import DayList from "components/DayList";
 import Appointment from "components/Appointment/index.js";
 import "components/Application.scss";
 import axios from "axios";
-import { getAppointmentsForDay } from "helpers/selectors";
+import {
+  getAppointmentsForDay,
+  getInterviewersForDay,
+} from "helpers/selectors";
 
-// The main reason we are not storing the day state
-// in the DayList is that we need to use that state
-// with other components.
-// We "lifted" the state up to the Application
-// component.
+//*********************************************************************//
+// MANAGES THE DAYLIST NAV BAR AND APPOINTMENTS BASED ON CURRENT STATE //
+//*********************************************************************//
 
 export default function Application(props) {
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
+    interviewers: {},
   });
-
+  console.log("INTERVIEWERS", state.interviewers);
   useEffect(() => {
     // /api/appointments
 
-    Promise.all([axios.get(`/api/days`), axios.get(`/api/appointments`)]).then(
-      (all) => {
-        const days = all[0].data;
-        const appointments = all[1].data;
-        const updatedState = { ...state, days, appointments };
-        setState(updatedState);
-      }
-    );
+    Promise.all([
+      axios.get(`/api/days`),
+      axios.get(`/api/appointments`),
+      axios.get(`/api/interviewers`),
+    ]).then((all) => {
+      const days = all[0].data;
+      const appointments = all[1].data;
+      const interviewers = all[2].data;
+      const updatedState = { ...state, days, appointments, interviewers };
+      setState(updatedState);
+    });
   }, []);
 
   const setDay = (day) => setState({ ...state, day });
   const dailyAppointments = getAppointmentsForDay(state, state.day);
+  const dailyInterviewers = getInterviewersForDay(state, state.day);
+
+  const bookInterview = function (id, interview) {
+    console.log(id, interview);
+  }
 
   let appointmentList = dailyAppointments.map((app) => {
-    return <Appointment key={app.id} {...app} />;
+    console.log("APPOITNMENTS", app)
+    
+    return (
+      <Appointment
+        key={app.id}
+        id={app.id}
+        time={app.time}
+        interview={app.interview}
+        interviewers={dailyInterviewers}
+        bookInterview={bookInterview}
+      />
+    );
   });
 
   return (
