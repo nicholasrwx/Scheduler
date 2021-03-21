@@ -41,12 +41,58 @@ export default function Application(props) {
   const dailyInterviewers = getInterviewersForDay(state, state.day);
 
   const bookInterview = function (id, interview) {
-    console.log(id, interview);
-  }
+    //create a new appointment
+    //grabbed a specific appointment with id that matched the slot used to create an appointment,
+    //updated interview with our new interview (studnet name, and interviewer number)
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+
+    //create a new appointments object
+    //grabbed the entire appointments object from state
+    // updated a specific appointment, with our newly created appointment object
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    //update state with our new appointments object
+    // setState({ ...state, appointments });
+
+    //NOW WE TAKE THE SAME ID AND INTERVIEW
+    //AND UPDATE THE DATABASE WITH IT
+    return axios
+      .put(`http://localhost:8001/api/appointments/${id}`, { interview })
+      .then(() => {
+        //let days = updateSpots(state.day, state.days, appointments);
+        setState((prev) => ({ ...prev, appointments }));
+      });
+  };
+
+  const cancelling = function (id) {
+    const interview = null;
+
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview },
+    };
+
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment,
+    };
+
+    return axios
+      .delete(`http://localhost:8001/api/appointments/${id}`, { interview })
+      .then(() => {
+        setState((prev) => ({ ...prev, appointments }));
+      });
+  };
 
   let appointmentList = dailyAppointments.map((app) => {
-    console.log("APPOITNMENTS", app)
-    
+    console.log("APPOITNMENTS", app);
+
     return (
       <Appointment
         key={app.id}
@@ -55,6 +101,7 @@ export default function Application(props) {
         interview={app.interview}
         interviewers={dailyInterviewers}
         bookInterview={bookInterview}
+        cancelling={cancelling}
       />
     );
   });
