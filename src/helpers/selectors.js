@@ -47,3 +47,17 @@ export function getInterviewersForDay(state, day) {
 
   return result;
 }
+
+export function getInterview(state, interview) {
+  //Using length instead of null otherwise this would never return a result
+  //for the second test
+  if (interview && Object.keys(interview).length) {
+    const { student, interviewer: id } = interview;
+    const data = state.interviewers[id];
+    const result = { student, interviewer: data };
+    return result;
+  
+  }
+
+  return null;
+}

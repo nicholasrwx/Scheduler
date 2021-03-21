@@ -2,9 +2,6 @@ import React, { useState } from "react";
 import Button from "../Button";
 import InterviewerList from "../InterviewerList";
 
-
-
-
 export default function Form(props) {
   const [error, setError] = useState("");
   const [name, setName] = useState(props.name || "");
@@ -21,17 +18,20 @@ export default function Form(props) {
   };
 
   function validate() {
-    
-    
-    if (name === "") {
-      setError("Student name cannot be blank");
+    if (interviewer === null && name === "") {
+      setError("Please enter a name and select an interviewer");
+      return;
+    } else if (name === "") {
+      setError("Please enter a name");
+      return;
+    } else if (interviewer === null) {
+      setError("Please select an interviewer");
       return;
     }
-    setError(null)
+
+    setError(null);
     props.onSave(name, interviewer);
   }
-
-
 
   return (
     <main className="appointment__card appointment__card--create">
@@ -63,7 +63,7 @@ export default function Form(props) {
           <Button danger onClick={cancel}>
             Cancel
           </Button>
-          <Button confirm onClick={ () => validate() }>
+          <Button confirm onClick={() => validate()}>
             Save
           </Button>
         </section>
