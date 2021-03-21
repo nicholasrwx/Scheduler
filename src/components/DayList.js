@@ -7,7 +7,7 @@ export default function Daylist(props) {
       <DayListItem
         key={day.id}
         name={day.name}
-        //setDay is a prop outside of props.days, 
+        //setDay is a prop outside of props.days,
         //its not an item in the props.days array,
         //therefore it needs to be props.setDay
         //it can change because its managed by state

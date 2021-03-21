@@ -56,7 +56,6 @@ export function getInterview(state, interview) {
     const data = state.interviewers[id];
     const result = { student, interviewer: data };
     return result;
-  
   }
 
   return null;
