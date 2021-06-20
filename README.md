@@ -1,6 +1,6 @@
 # Interview Scheduler
 
-Interview Scheduler is a complex application that can create appointments. It gives you a list of available interviewers to choose from, and calculates available timeslots on a particular day based off how many empty appointments there are. It also gives you the option to edit or delete an appointment. It will let you know if a field is missing information before it will allow you to create an appointment. Also, if there is something wrong with creating or deleting the appointment, it will display an error message letting the user know something went wrong.  
+Interview Scheduler is a complex application, built with React, that can create appointments. It gives you a list of available interviewers to choose from, and calculates available timeslots on a particular day based off how many empty appointments there are. It also gives you the option to edit or delete an appointment. It will let you know if a field is missing information before it will allow you to create an appointment. Also, if there is something wrong with creating or deleting the appointment, it will display an error message letting the user know something went wrong.  
 
 ## Final Product
 
