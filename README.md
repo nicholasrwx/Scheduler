@@ -26,18 +26,26 @@ Interview Scheduler is a complex application, built with React, that can create 
 
 ## Dependencies
 
- axios 0.21.1
- classnames 2.2.6
- normalize.css 8.0.1
- react 16.9.0
- react-dom 16.9.0
- react-scripts 3.0.0
- babel-loader 8.0.5
- node-sass 4.14.0
+ - node 14.20.0
+ - npm 8.19.1 ( Installs with node )
+ - axios 0.21.1
+ - classnames 2.2.6
+ - normalize.css 8.0.1
+ - react 16.9.0
+ - react-dom 16.9.0
+ - react-scripts 3.0.0
+ - babel-loader 8.0.5
+ - node-sass 4.14.0
 
+## Dependency Notes
+  - Ensure node and npm versions are correct
+  - ```npm install -g npm@8.19.1``` May help in case of pre-installed npm causing conflict
+  - Ensure babel-loader remains at 8.0.5
+  - Don't upgrade node-sass to sass
+
+```Later versions of node install modules which cause dependency issues. Babel and Story Book become deprecated and the newer versions require sass instead of node-sass, which causes further dependency issues.```
 
 ## Setup
-
 Install dependencies with `npm install`.
 
 ## Running Webpack Development Server
